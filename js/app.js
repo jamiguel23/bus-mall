@@ -85,23 +85,43 @@ function renderRandomItems() {
 
 renderRandomItems();
 
-function handleItemClick(event){
-  if(event.target === myContainer){
+function handleItemClick(event) {
+  if (event.target === myContainer) {
     alert('Click on one of the images');
   }
 
   clicks++;
   let clickedItem = event.target.alt;
-  for (let i=0; i <allItems.length; i++){
-    if (clickedItem === allItems[i].name){
+  for (let i = 0; i < allItems.length; i++) {
+    if (clickedItem === allItems[i].name) {
       allItems[i].clicks++;
     }
   }
   renderRandomItems();
 
-  if (clicks === clicksAllowed){
+  if (clicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleItemClick);
   }
 }
 
+function renderResult() {
+  let ul = document.querySelector('ul');
+  for (let i = 0; i < allItems.length; i++) {
+    let li = document.createElement('li');
+    li.textContent = `${allItems[i].name} had ${allItems[i].views} views and was clicked ${allItems[i].clicks} times`;
+    ul.appendChild(li);
+
+
+  }
+}
+
+
+function handleButtonClick(event) {
+  if (clicks === clicksAllowed) {
+    renderResult();
+  }
+}
+
+
 myContainer.addEventListener('click', handleItemClick);
+myButton.addEventListener('click', handleButtonClick);
