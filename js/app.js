@@ -6,11 +6,13 @@ let allItems = [];
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
 let clicks = 0;
-let clicksAllowed = 5;
+let clicksAllowed = 25;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
 let imageThree = document.querySelector('section img:last-child');
+
+let renderListArray = [];
 
 
 
