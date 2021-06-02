@@ -6,7 +6,7 @@ let allItems = [];
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
 let clicks = 0;
-let clicksAllowed = 25;
+let clicksAllowed = 5;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');

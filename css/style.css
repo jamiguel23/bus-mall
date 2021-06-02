@@ -51,4 +51,15 @@ main ul{
   margin: auto;
   text-align: center;
   color: black;
+  margin-top: 20px;
+  max-width: 350px;
+  padding: 10px;
+  background-color: crimson;
+  /* display: inline-block; */
 }
+/* 
+main h3, main section, main div{
+
+  position: absolute;
+  top: auto;
+} */
