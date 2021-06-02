@@ -46,3 +46,9 @@ main div{
 main div:hover, section img:hover{
   cursor: pointer;
 }
+
+main ul{
+  margin: auto;
+  text-align: center;
+  color: black;
+}

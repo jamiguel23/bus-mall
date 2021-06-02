@@ -15,10 +15,6 @@ let imageThree = document.querySelector('section img:last-child');
 let renderListArray = [];
 
 
-
-
-
-
 function Item(name, fileExtenstion = 'jpg') {
   this.name = name;
   this.src = `img/${name}.${fileExtenstion}`;
@@ -58,15 +54,22 @@ function selectRandomItemIndex() {
 }
 
 function renderRandomItems() {
-  let itemOne = selectRandomItemIndex();
-  let itemTwo = selectRandomItemIndex();
-  let itemThree = selectRandomItemIndex();
-  while (itemOne === itemTwo || itemThree === itemTwo)
-    itemTwo = selectRandomItemIndex();
-  while (itemThree === itemOne || itemTwo === itemOne)
-    itemOne = selectRandomItemIndex();
-  while (itemTwo === itemThree || itemOne === itemThree)
-    itemThree = selectRandomItemIndex();
+  while(renderListArray.length<3) {
+    let uniqueProduct = selectRandomItemIndex();
+    while(!renderListArray.includes(uniqueProduct)){
+      renderListArray.push(uniqueProduct);
+    }
+  }
+
+  let itemOne = renderListArray.pop();
+  let itemTwo = renderListArray.pop();
+  let itemThree = renderListArray.pop();
+  // while (itemOne === itemTwo || itemThree === itemTwo)
+  //   itemTwo = selectRandomItemIndex();
+  // while (itemThree === itemOne || itemTwo === itemOne)
+  //   itemOne = selectRandomItemIndex();
+  // while (itemTwo === itemThree || itemOne === itemThree)
+  //   itemThree = selectRandomItemIndex();
 
   imageOne.src = allItems[itemOne].src;
   imageOne.alt = allItems[itemOne].name;
@@ -122,6 +125,8 @@ function handleButtonClick(event) {
   if (clicks === clicksAllowed) {
     renderResult();
   }
+
+  myButton.removeEventListener('click', handleButtonClick );
 }
 
 
