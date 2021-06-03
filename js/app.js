@@ -6,7 +6,7 @@ let allItems = [];
 let myContainer = document.querySelector('section');
 let myButton = document.querySelector('div');
 let clicks = 0;
-let clicksAllowed = 25;
+let clicksAllowed = 5;
 
 let imageOne = document.querySelector('section img:first-child');
 let imageTwo = document.querySelector('section img:nth-child(2)');
@@ -44,32 +44,23 @@ new Item('water-can');
 new Item('wine-glass');
 
 
-// imageThree.src = allItems[0].src;
-// imageTwo.src = allItems[1].src;
-// imageOne.src = allItems[2].src;
-// allItems[0].views++;
-
 function selectRandomItemIndex() {
   return Math.floor(Math.random() * allItems.length);
 }
 
 function renderRandomItems() {
-  while(renderListArray.length<3) {
+  while (renderListArray.length < 6) {
     let uniqueProduct = selectRandomItemIndex();
-    while(!renderListArray.includes(uniqueProduct)){
-      renderListArray.push(uniqueProduct);
+    if (!renderListArray.includes(uniqueProduct)) {
+      renderListArray.unshift(uniqueProduct);
     }
   }
+
+  console.log(renderListArray);
 
   let itemOne = renderListArray.pop();
   let itemTwo = renderListArray.pop();
   let itemThree = renderListArray.pop();
-  // while (itemOne === itemTwo || itemThree === itemTwo)
-  //   itemTwo = selectRandomItemIndex();
-  // while (itemThree === itemOne || itemTwo === itemOne)
-  //   itemOne = selectRandomItemIndex();
-  // while (itemTwo === itemThree || itemOne === itemThree)
-  //   itemThree = selectRandomItemIndex();
 
   imageOne.src = allItems[itemOne].src;
   imageOne.alt = allItems[itemOne].name;
@@ -106,6 +97,7 @@ function handleItemClick(event) {
 
   if (clicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleItemClick);
+    renderChart();
   }
 }
 
@@ -120,16 +112,62 @@ function renderResult() {
   }
 }
 
+function renderChart() {
+
+  let itemNames = [];
+  let itemViews = [];
+  let itemClicks = [];
+  for (let i = 0; i < allItems.length; i++) {
+    itemNames.push(allItems[i].name);
+    itemViews.push(allItems[i].views);
+    itemClicks.push(allItems[i].clicks);
+  }
+
+
+  let ctx = document.getElementById('myChart').getContext('2d');
+  // console.log(ctx);
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: itemNames,
+      datasets: [{
+        label: 'Views',
+        data: itemViews,
+        backgroundColor: 'rgba(173, 223, 255, 1)',
+        borderColor: 'black',
+        borderWidth: 1,
+      },
+      {
+        label: 'Clicks',
+        data: itemClicks,
+        backgroundColor: 'rgba(237, 237, 116, 0.8)',
+        borderColor: 'black',
+        borderWidth: 1,
+      }],
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+
+
+}
+// renderChart();
+
 
 function handleButtonClick(event) {
   if (clicks === clicksAllowed) {
     renderResult();
   }
 
-  myButton.removeEventListener('click', handleButtonClick );
+  myButton.removeEventListener('click', handleButtonClick);
 }
 
 
 
 myContainer.addEventListener('click', handleItemClick);
-myButton.addEventListener('click', handleButtonClick);
+// myButton.addEventListener('click', handleButtonClick);
