@@ -49,12 +49,14 @@ function selectRandomItemIndex() {
 }
 
 function renderRandomItems() {
-  while (renderListArray.length < 3) {
+  while (renderListArray.length < 6) {
     let uniqueProduct = selectRandomItemIndex();
-    while (!renderListArray.includes(uniqueProduct)) {
-      renderListArray.push(uniqueProduct);
+    if (!renderListArray.includes(uniqueProduct)) {
+      renderListArray.unshift(uniqueProduct);
     }
   }
+
+  console.log(renderListArray);
 
   let itemOne = renderListArray.pop();
   let itemTwo = renderListArray.pop();
