@@ -97,6 +97,7 @@ function handleItemClick(event) {
 
   if (clicks === clicksAllowed) {
     myContainer.removeEventListener('click', handleItemClick);
+    renderChart();
   }
 }
 
@@ -111,34 +112,38 @@ function renderResult() {
   }
 }
 
-function renderChart(){
+function renderChart() {
+
+  let itemNames = [];
+  let itemViews = [];
+  let itemClicks = [];
+  for (let i = 0; i < allItems.length; i++) {
+    itemNames.push(allItems[i].name);
+    itemViews.push(allItems[i].views);
+    itemClicks.push(allItems[i].clicks);
+  }
+
+
   let ctx = document.getElementById('myChart').getContext('2d');
-  console.log(ctx);
+  // console.log(ctx);
   let myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+      labels: itemNames,
       datasets: [{
-        label: '# of Votes',
-        data: [12, 19, 3, 5, 2, 3],
-        backgroundColor: [
-          'rgba(255, 99, 132, 0.2)',
-          'rgba(54, 162, 235, 0.2)',
-          'rgba(255, 206, 86, 0.2)',
-          'rgba(75, 192, 192, 0.2)',
-          'rgba(153, 102, 255, 0.2)',
-          'rgba(255, 159, 64, 0.2)'
-        ],
-        borderColor: [
-          'rgba(255, 99, 132, 1)',
-          'rgba(54, 162, 235, 1)',
-          'rgba(255, 206, 86, 1)',
-          'rgba(75, 192, 192, 1)',
-          'rgba(153, 102, 255, 1)',
-          'rgba(255, 159, 64, 1)'
-        ],
-        borderWidth: 1
-      }]
+        label: 'Views',
+        data: itemViews,
+        backgroundColor: 'rgba(173, 223, 255, 1)',
+        borderColor: 'black',
+        borderWidth: 1,
+      },
+      {
+        label: 'Clicks',
+        data: itemClicks,
+        backgroundColor: 'rgba(237, 237, 116, 0.8)',
+        borderColor: 'black',
+        borderWidth: 1,
+      }],
     },
     options: {
       scales: {
@@ -151,7 +156,7 @@ function renderChart(){
 
 
 }
-renderChart();
+// renderChart();
 
 
 function handleButtonClick(event) {
@@ -165,4 +170,4 @@ function handleButtonClick(event) {
 
 
 myContainer.addEventListener('click', handleItemClick);
-myButton.addEventListener('click', handleButtonClick);
+// myButton.addEventListener('click', handleButtonClick);
