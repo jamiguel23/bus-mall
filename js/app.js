@@ -81,7 +81,7 @@ function renderRandomItems() {
   imageThree.alt = allItems[itemThree].name;
   allItems[itemThree].views++;
 
-
+  
 
 }
 
